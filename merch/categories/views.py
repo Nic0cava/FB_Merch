@@ -19,6 +19,10 @@ def add_category():
         flash('New Category Successfully Added!') #! Update this flash later
         return redirect(url_for('core.index'))
     
+    # flash validation errors after POST
+    if request.method == 'POST' and form.name.errors:
+        flash(form.name.errors[0], 'danger')
+    
     return render_template('add_category.html',form=form)
     
 
@@ -37,5 +41,9 @@ def update_category(category_id):
 
     elif request.method == 'GET':
         form.name.data = cat.name
+
+    # flash validation errors after POST
+    if request.method == 'POST' and form.name.errors:
+        flash(form.name.errors[0], 'danger')
 
     return render_template('update_category.html', form=form, category=cat)
