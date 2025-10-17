@@ -14,7 +14,6 @@ class AddCategoryForm(FlaskForm):
             raise ValidationError("This category name already exists!")
         
 class UpdateCategoryForm(FlaskForm):
-
     name = StringField("Name",validators=[DataRequired()])
     submit = SubmitField("Update")
 

@@ -11,8 +11,13 @@ class Category(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(64),unique=True,nullable=False)
 
-    # relationship to items
-    items = db.relationship('Items',backref='category',lazy=True)
+    # relationship to Item (class name must match)
+    items = db.relationship(
+        'Item',
+        back_populates='category',
+        lazy='dynamic',
+        cascade='all, delete-orphan'
+    )
 
     def __init__(self, name):
         self.name = name
@@ -22,6 +27,7 @@ class Category(db.Model):
 
 class Item(db.Model):
    # adds a non-negative constraint to quantity column
+   __tablename__= 'items'
    __table_args__ = (
         CheckConstraint('quantity >= 0', name='ck_items_quantity_nonnegative'),
     )
@@ -36,10 +42,14 @@ class Item(db.Model):
    # date = db.Column(db.DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc)) #! If this does not work try server-side
    # Server-Side #!might have to change pgAdmin settings
    date = db.Column(db.DateTime(timezone=True), nullable=False, server_default=func.now())
+   # relationship back to Category
+   category = db.relationship('Category', back_populates='items')
 
-   def __init__(self, name, quantity):
+
+   def __init__(self, name, quantity=0, category_id=None):
        self.name = name
        self.quantity = quantity
+       self.category_id = category_id
 
    def __repr__(self):
        return f"Item: {self.name}, QT: {self.quantity}"
@@ -50,4 +60,3 @@ class Item(db.Model):
 # from wtforms.validators import DataRequired, NumberRange
 
 # quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0)])
-# # ...existing code...

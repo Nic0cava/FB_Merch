@@ -33,5 +33,7 @@ Migrate(app, db)
 
 from merch.core.views import core
 from merch.error_pages.handlers import error_pages
+from merch.categories.views import category
+app.register_blueprint(category)
 app.register_blueprint(core)
 app.register_blueprint(error_pages)

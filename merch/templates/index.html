@@ -8,6 +8,21 @@
     </div>
   </form>
 
+    {% for category in categories %}
+    <h3 class="d-flex align-items-center justify-content-between">
+      <span>{{ category.name }}</span>
+      <!-- Edit button: goes to /updatecategory/<id> -->
+      <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('category.update_category', category_id=category.id) }}">
+        Edit
+      </a>
+    </h3>
+    <ul>
+    {% for item in category.sorted_items %}
+      <li>{{ item.name }} — {{ item.quantity }} — {{ item.date }}</li>
+    {% endfor %}
+    </ul>
+    {% endfor %}
+
 
        <div class="accordion" id="accordionExample">
   <div class="accordion-item">
