@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <h2 class="mb-3">Update Item: {{ item.name }}</h2>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control") }}
+      {% if form.name.errors %}
+        <div class="text-danger small">{{ form.name.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.quantity.label(class="form-label") }}
+      {{ form.quantity(class="form-control") }}
+      {% if form.quantity.errors %}
+        <div class="text-danger small">{{ form.quantity.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    <div class="mb-3">
+      {{ form.category_id.label(class="form-label") }}
+      {{ form.category_id(class="form-select") }}
+      {% if form.category_id.errors %}
+        <div class="text-danger small">{{ form.category_id.errors[0] }}</div>
+      {% endif %}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}
+    <a href="{{ url_for('core.index') }}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+
+   <!-- Delete form: posts to same URL; button named "delete" -->
+  <form method="POST" onsubmit="return confirm('Delete this item?');" class="d-inline ms-2">
+    {{ delete_form.hidden_tag() }}
+    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+  </form>
+</div>
+{% endblock %}

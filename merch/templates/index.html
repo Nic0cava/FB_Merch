@@ -19,6 +19,9 @@
     <ul>
     {% for item in category.sorted_items %}
       <li>{{ item.name }} — {{ item.quantity }} — {{ item.date }}</li>
+      <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('items.update_item', item_id=item.id) }}">
+        Edit
+      </a>
     {% endfor %}
     </ul>
     {% endfor %}

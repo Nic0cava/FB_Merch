@@ -54,9 +54,3 @@ class Item(db.Model):
    def __repr__(self):
        return f"Item: {self.name}, QT: {self.quantity}"
 
-
-#! ADD TO FORMS
-# from wtforms import IntegerField
-# from wtforms.validators import DataRequired, NumberRange
-
-# quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0)])
