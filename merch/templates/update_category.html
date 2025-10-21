@@ -23,6 +23,11 @@
         {{form.name.label}}{{form.name}}<br>
         {{form.submit()}}
     </form>
+     <!-- Delete form: posts to same URL; button named "delete" -->
+  <form method="POST" onsubmit="return confirm('Delete this item?');" class="d-inline ms-2">
+    {{ delete_form.hidden_tag() }}
+    <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+  </form>
 </div>
 
 {% endblock %}

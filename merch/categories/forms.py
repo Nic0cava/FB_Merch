@@ -26,3 +26,6 @@ class UpdateCategoryForm(FlaskForm):
         # allow same name as before, otherwise enforce uniqueness
         if field.data != self.original_name and Category.query.filter_by(name=field.data).first():
             raise ValidationError("This category name already exists!")
+
+class DeleteCategoryForm(FlaskForm):
+    submit = SubmitField("Delete")
