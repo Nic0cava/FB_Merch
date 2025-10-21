@@ -7,42 +7,44 @@
       <input type="text" class="form-control" placeholder="Search Item Name..." aria-label="Username" aria-describedby="basic-addon1"/>
     </div>
   </form>
-
-    {% for category in categories %}
-    <h3 class="d-flex align-items-center justify-content-between">
-      <span>{{ category.name }}</span>
-      <!-- Edit button: goes to /updatecategory/<id> -->
-      <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('category.update_category', category_id=category.id) }}">
-        Edit
-      </a>
-    </h3>
-    <ul>
-    {% for item in category.sorted_items %}
-      <li>{{ item.name }} — {{ item.quantity }} — {{ item.date }}</li>
-      <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('items.update_item', item_id=item.id) }}">
-        Edit
-      </a>
-    {% endfor %}
-    </ul>
-    {% endfor %}
-
-
-       <div class="accordion" id="accordionExample">
+        
+        
+ <div class="accordion" id="accordionExample">
+  {% for category in categories %}
   <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        Wearables
+    <h2 class="accordion-header" id="heading{{ loop.index }}">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+        {{ category.name }}
+        <a class="btn btn-sm btn-outline-secondary ms-2" href="{{ url_for('category.update_category', category_id=category.id) }}">Edit</a>
       </button>
     </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+
+    <div id="collapse{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#accordionExample">
       <div class="accordion-body p-0">
-        <div class="item mb-0">This is where an item will go</div>
-        <div class="item mb-0">This is where an item will go</div>
-        <div class="item mb-0">This is where an item will go</div>
+        {% for item in category.sorted_items %}
+         <div class="item-row">
+    <div class="item-name text-truncate" title="{{ item.name }}">{{ item.name }}</div>
+
+    <div class="item-qty text-muted text-center">
+      Qty<br><strong>{{ item.quantity }}</strong>
+    </div>
+
+    <div class="item-date text-muted text-center">
+      Date<br><strong>{{ item.date.strftime('%Y-%m-%d') if item.date else '' }}</strong>
+    </div>
+
+    <div class="item-actions text-end">
+      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('items.update_item', item_id=item.id) }}">Edit</a>
+    </div>
+  </div>
+        {% endfor %}
       </div>
     </div>
   </div>
-  <div class="accordion-item">
+  {% endfor %}
+</div>
+  <!-- <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
         Headwear
@@ -83,7 +85,7 @@
         <div class="item mb-0">This is where an item will go</div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
    </div>
 {% endblock %}
