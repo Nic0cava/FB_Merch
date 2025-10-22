@@ -10,7 +10,7 @@
   <!-- <link rel="icon" href="{{ url_for('static', filename='Espresso.png') }}" type="image/png"> -->
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container-fluid">
     <a class="navbar-brand" href="{{ url_for('core.index') }}">
       <img src="{{ url_for('static', filename='images/Robot.png') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -48,10 +48,10 @@
     {% block content %}
 
     {% endblock %}
-    <div style="height:70px" aria-hidden="true"></div>
+    <div style="height:50px" aria-hidden="true"></div>
 
     <nav class="navbar fixed-bottom bg-body-tertiary">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-center flex-nowrap gap-3 py-2 footer">
         <a class="navbar-brand" href="{{url_for('items.add_item')}}">Add Item</a>
         <a class="navbar-brand" href="{{url_for('category.add_category')}}">Add Category</a>
     </div>

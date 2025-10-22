@@ -1,6 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
    <div class="container py-2">
+    {# Flash messages #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
   <div class="row mb-3">
     <div class="col-12 col-md-8 offset-md-2">
       <form class="d-flex" role="search">
