@@ -18,12 +18,13 @@
   {% endwith %}
   <div class="row mb-3">
     <div class="col-12 col-md-8 offset-md-2">
-      <form class="d-flex" role="search">
-        <div class="input-group w-100">
-          <span class="input-group-text" id="basic-addon1">🔍</span>
-          <input type="search" class="form-control" placeholder="Search Item Name..." aria-label="Search" aria-describedby="basic-addon1"/>
-        </div>
-      </form>
+      <form class="d-flex" role="search" method="get">
+    <div class="input-group w-100">
+      <span class="input-group-text" id="basic-addon1">🔍</span>
+      <input type="search" name="q" class="form-control" placeholder="Search Item Name..." aria-label="Search" aria-describedby="basic-addon1"
+             value="{{ request.args.get('q', '') }}"/>
+    </div>
+  </form>
     </div>
   </div>
         
@@ -76,4 +77,42 @@
   {% endfor %}
 </div>
 </div>
+<script>
+(function(){
+  try {
+    const navEntries = performance.getEntriesByType && performance.getEntriesByType('navigation');
+    const nav = navEntries && navEntries[0];
+    const isReload = (nav && nav.type === 'reload') || (performance.navigation && performance.navigation.type === 1);
+
+    const url = new URL(window.location.href);
+    const q = (url.searchParams.get('q') || '').trim();
+    const hasQ = q.length > 0;
+
+    // if page reload, strip q to avoid re-applying search on refresh
+    if (isReload && hasQ) {
+      url.searchParams.delete('q');
+      window.location.replace(url.pathname + (url.search ? '?' + url.searchParams.toString() : ''));
+      return;
+    }
+
+    // if a search is present (and not a reload), expand accordion items that have results
+    if (hasQ) {
+      document.querySelectorAll('.accordion-item').forEach(item => {
+        const rows = item.querySelectorAll('.item-row1');
+        if (rows && rows.length) {
+          const btn = item.querySelector('.accordion-button');
+          const collapse = item.querySelector('.accordion-collapse');
+          if (btn && collapse) {
+            btn.classList.remove('collapsed');
+            btn.setAttribute('aria-expanded', 'true');
+            collapse.classList.add('show');
+          }
+        }
+      });
+    }
+  } catch (e) {
+    console.error(e);
+  }
+})();
+</script>
 {% endblock %}
