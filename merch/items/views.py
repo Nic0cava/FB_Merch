@@ -3,6 +3,7 @@ from flask import render_template, url_for, flash, request, redirect, Blueprint
 from merch import db
 from merch.models import Item, Category
 from merch.items.forms import AddItemForm, UpdateItemForm, DeleteItemForm
+from datetime import datetime, timezone
 
 items = Blueprint('items', __name__)
 
@@ -40,7 +41,8 @@ def add_item():
 @items.route('/updateitem/<int:item_id>', methods=['GET', 'POST'])
 def update_item(item_id):
     item = Item.query.get_or_404(item_id)
-    form = UpdateItemForm()
+    # pass original_name so the validator allows unchanged names
+    form = UpdateItemForm(original_name=item.name)
     delete_form = DeleteItemForm()
 
     # populate category choices each request
@@ -59,6 +61,8 @@ def update_item(item_id):
         item.name = form.name.data
         item.quantity = form.quantity.data
         item.category_id = form.category_id.data
+        # update timestamp to now (UTC)
+        item.date = datetime.now(timezone.utc)
         db.session.commit()
         flash('Item updated', 'success')
         return redirect(url_for('core.index'))

@@ -1,51 +1,26 @@
-.item {
+/* Debug for item div */
+/* .item {
     border: 1px solid black;
-}
+} */
 
-/* item row laid out like a spreadsheet row:
-   columns: name | qty | date | actions
-*/
-.item-row {
-  display: grid;
-  grid-template-columns: 1fr 90px 130px 90px;
-  gap: 0.5rem;
-  align-items: center;
-  padding: 0.5rem 0.25rem;
+.item-row1 {
+  display: flex;                  /* use flexbox */
+  justify-content: space-between; /* space items apart horizontally */
+  align-items: center;            /* vertically center them */
+  /* border: 1px solid black; */
   border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 0.5rem;
+  text-align: center;
+}
+.item-row1 .item-actions {
+  margin-left: auto;              /* pushes this element to the right */
 }
 
-/* allow the name cell to shrink and enable truncation */
-.item-row .item-name {
-  min-width: 0;              /* needed so text-truncate works in grid */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.item-row2 {
+    /* border: 1px solid black; */
+    align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  padding: 0.5rem;
 }
 
-/* center small numeric/date columns and make labels small */
-.item-row .item-qty,
-.item-row .item-date {
-  font-size: 0.9rem;
-  line-height: 1.1;
-}
-
-/* actions align right */
-.item-row .item-actions {
-  justify-self: end;
-}
-
-/* responsive: stack on small screens, show each field stacked with a gap */
-@media (max-width: 576px) {
-  .item-row {
-    grid-template-columns: 1fr;
-    gap: 0.25rem;
-  }
-  .item-row .item-qty,
-  .item-row .item-date,
-  .item-row .item-actions {
-    text-align: left;
-  }
-  .item-row .item-name {
-    white-space: normal; /* allow wrapping on small screens */
-  }
-}

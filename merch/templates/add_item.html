@@ -1,33 +1,61 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container">
-    {# ← Flash messages go here #}
-          {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-              {% for category, message in messages %}
-                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                  {{ message }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
-    <h2>Add Item</h2>
-    <form method="POST">
-      {{ form.hidden_tag() }}
-      <div class="mb-3">
-        {{ form.name.label(class="form-label") }}
-        {{ form.name(class="form-control") }}
-      </div>
-      <div class="mb-3">
-        {{ form.quantity.label(class="form-label") }}
-        {{ form.quantity(class="form-control") }}
-      </div>
-      <div class="mb-3">
-        {{ form.category_id.label(class="form-label") }}
-        {{ form.category_id(class="form-select") }}
-      </div>
-      {{ form.submit(class="btn btn-primary") }}
-    </form>
+  <div class="text-center my-4">
+    <h2 class="fw-bold">Add Item</h2>
+    <p class="text-muted mb-0">Create a new inventory item and assign it to a category.</p>
   </div>
+
+  {# Flash messages #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6">
+        <div class="mb-3">
+          {{ form.name.label(class="form-label") }}
+          {{ form.name(class="form-control", placeholder="Item name") }}
+          {% if form.name.errors %}
+            <div class="invalid-feedback d-block">{{ form.name.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.quantity.label(class="form-label") }}
+          {{ form.quantity(class="form-control", placeholder="Quantity") }}
+          {% if form.quantity.errors %}
+            <div class="invalid-feedback d-block">{{ form.quantity.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="mb-3">
+          {{ form.category_id.label(class="form-label") }}
+          {{ form.category_id(class="form-select") }}
+          {% if form.category_id.errors %}
+            <div class="invalid-feedback d-block">{{ form.category_id.errors[0] }}</div>
+          {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 mt-3">
+          {{ form.submit(class="btn btn-primary") }}
+          <a href="{{ url_for('core.index') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
 {% endblock %}
