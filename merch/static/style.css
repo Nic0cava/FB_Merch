@@ -8,7 +8,6 @@
   justify-content: space-between; /* space items apart horizontally */
   align-items: center;            /* vertically center them */
   /* border: 1px solid black; */
-  border-bottom: 1px solid rgba(0,0,0,0.06);
   padding: 0.5rem;
   text-align: center;
 }
@@ -22,5 +21,22 @@
   justify-content: space-between;
   border-bottom: 1px solid rgba(0,0,0,0.06);
   padding: 0.5rem;
+  margin-top: -1.25rem; /* brings row2 closer to row1 */
 }
 
+.item-date {
+    font-size: 0.75rem;
+}
+
+.item-qty {
+    margin-top: -1.5rem;
+}
+
+.item-actions {
+    margin-top: -1.5rem;
+}
+
+.accordion-button {
+    font-weight: bold;
+    font-size: 1.25rem;
+}

@@ -25,10 +25,10 @@
       {{ category.name }}
     </button>
 
-    <a class="btn btn-sm btn-outline-secondary ms-2"
+    <a class="btn btn-sm ms-2"
        href="{{ url_for('category.update_category', category_id=category.id) }}"
        onclick="event.stopPropagation();">
-      Edit
+      ✏
     </a>
   </div>
     </h2>
@@ -38,18 +38,20 @@
         {% for item in category.sorted_items %}
          <div class="item-row1 d-flex">
     <div class="item-name text-truncate" title="{{ item.name }}">{{ item.name }}</div>
-    <div class="item-actions text-end">
-      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('items.update_item', item_id=item.id) }}">Edit</a>
+</div>
+<div class="item-row2 d-flex">
+    <div class="item-date text-muted text-center">
+        <strong>{{ item.date.strftime('%Y-%m-%d') if item.date else '' }}</strong>
     </div>
-         </div>
-         <div class="item-row2 d-flex">
+    
     <div class="item-qty text-muted text-center">
-      Qty<br><strong>{{ item.quantity }}</strong>
+        <strong>Qty: {{ item.quantity }}</strong>
     </div>
 
-    <div class="item-date text-muted text-center">
-      Date<br><strong>{{ item.date.strftime('%Y-%m-%d') if item.date else '' }}</strong>
+    <div class="item-actions text-end">
+      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('items.update_item', item_id=item.id) }}">Update</a>
     </div>
+
 
   </div>
         {% endfor %}

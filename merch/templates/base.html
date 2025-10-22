@@ -12,7 +12,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="{{ url_for('core.index') }}">
       <img src="{{ url_for('static', filename='images/Robot.png') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
       Funky Buddha Merch
     </a>
@@ -21,18 +21,26 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {# Home: only show when not on home page #}
+        {# Home: only show when not on index page #}
         {% if request.path != url_for('core.index') %}
         <li class="nav-item">
-          <a class="nav-link active" href="{{ url_for('core.index') }}">Home</a>
+            <a class="nav-link active" href="{{ url_for('core.index') }}">Home</a>
+        </li>
+
+        {% endif %}
+        {# Add Item: only show when not on add_item page #}
+        {% if request.path != url_for('items.add_item') %}
+        <li class="nav-item">
+            <a class="nav-link active" href="{{url_for('items.add_item')}}">Add Item</a>
         </li>
         {% endif %}
-        <li class="nav-item">
-          <a class="nav-link active" href="{{url_for('items.add_item')}}">Add Item</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{{url_for('category.add_category')}}">Add Category</a>
-        </li>
+    {# Add Category: only show when not on add_category page #}
+    {% if request.path != url_for('category.add_category') %}
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{{url_for('category.add_category')}}">Add Category</a>
+    </li>
+    {% endif %}
     </div>
     </div>
     </nav>
