@@ -3,11 +3,33 @@
     border: 1px solid black;
 } */
 
-/* --- Footer sizing helpers --- */
+/* --- Helpers --- */
 :root {
-  /* change this to make the footer taller/shorter */
   --site-footer-height: 50px;
+  --FB-Logo-color-blue: rgb(0,103,158);
+  --FB-Logo-color-yellow: rgb(255,212,0);
+  --FB-Logo-color-white: rgb(254,254,255);
+  --FB-Logo-color-baby-blue: rgb(177,225,233);
 }
+
+body {
+  background-color: var(--FB-Logo-color-baby-blue);
+}
+
+.navbar-custom {
+  background-color: var(--FB-Logo-color-blue) !important;
+  color: var(--FB-Logo-color-white);
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link,
+.navbar-custom .navbar-toggler-icon {
+  color: var(--FB-Logo-color-white) !important;
+}
+.navbar-custom .navbar-toggler {
+  border-color: var(--FB-Logo-color-yellow);
+}
+
+
 
 
 .item-row1 {
@@ -52,7 +74,7 @@
     margin: 0 1.5rem;  /* left/right margin */
     justify-content: space-between;
   padding: 0.4rem 0.4rem;
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid var(--FB-Logo-color-yellow);
   border-radius: 6px;
   text-decoration: none;
   color: black;
@@ -88,4 +110,56 @@ main, .content, .page-body {
 .item-name {
   white-space: normal;  /* ensure text can wrap */
   word-break: break-word; /* break long words if needed */
+}
+
+/* update button styling inside item-actions */
+.item-actions .btn-outline-secondary,
+.item-actions a.btn-outline-secondary {
+  color: var(--FB-Logo-color-blue);      /* text color */
+  border-color: var(--FB-Logo-color-yellow); /* border color */
+  background-color: transparent;
+}
+
+/* hover / focus / active states */
+.item-actions .btn-outline-secondary:hover,
+.item-actions .btn-outline-secondary:focus,
+.item-actions a.btn-outline-secondary:hover,
+.item-actions a.btn-outline-secondary:focus {
+  color: #000; /* text on hover (choose contrast) */
+  background-color: rgba(255,212,0,0.95); /* use your yellow variable if desired */
+  border-color: var(--FB-Logo-color-yellow);
+}
+
+/* make navbar links look like pill buttons with the yellow border */
+.navbar-custom .nav-link {
+  display: inline-block;
+  padding: .35rem .6rem;
+  margin: .1rem;
+  border: 1px solid var(--FB-Logo-color-yellow);
+  border-radius: .375rem;
+  background: transparent;
+  text-decoration: none;
+  transition: background-color .15s ease, color .15s ease, transform .05s ease;
+  line-height: 1;
+}
+
+/* hover / focus state */
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link:focus,
+.navbar-custom .navbar-brand:hover,
+.navbar-custom .navbar-brand:focus {
+  background-color: var(--FB-Logo-color-yellow);
+  color: #000 !important;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* force nav links to sit on one row (keep .navbar-brand unchanged) */
+.navbar-custom .navbar-nav {
+    justify-content: space-between !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  gap: .5rem;
 }
