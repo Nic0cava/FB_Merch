@@ -11,6 +11,12 @@ def index():
     q = request.args.get('q', '').strip()
     q_lower = q.lower() if q else ''
 
+    # treat these as "out of stock" searches
+    OUT_TOKENS = {'status:out', 'out of stock', 'outofstock', 'oos', 'out', 'stock:0', 'qty:0'}
+
+    is_out_search = q_lower in OUT_TOKENS
+
+
     # load categories (no joinedload because items may be dynamic)
     categories = Category.query.order_by(Category.name).all()
     cat_ids = [c.id for c in categories]
@@ -23,11 +29,15 @@ def index():
 
     for cat in categories:
         items = items_by_cat.get(cat.id, []) or []
-        if q_lower:
+        if is_out_search:
+            filtered = [i for i in items if (i.quantity or 0) == 0]
+            cat.sorted_items = sorted(filtered, key=lambda i: (i.name or '').lower())
+        elif q_lower:
             filtered = [i for i in items if q_lower in (i.name or '').lower()]
             cat.sorted_items = sorted(filtered, key=lambda i: (i.name or '').lower())
         else:
             cat.sorted_items = sorted(items, key=lambda i: (i.name or '').lower())
+
 
     # when searching, drop categories that have no matching items
     if q_lower:

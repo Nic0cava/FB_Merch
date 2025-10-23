@@ -28,7 +28,7 @@
   justify-content: space-between;
   border-bottom: 1px solid rgba(0,0,0,0.06);
   padding: 0.5rem;
-  margin-top: -1.25rem; /* brings row2 closer to row1 */
+  margin-top: -1rem; /* brings row2 closer to row1 */
 }
 
 .item-date {
@@ -36,11 +36,11 @@
 }
 
 .item-qty {
-    margin-top: -1.5rem;
+    margin-top: -0.25rem;
 }
 
 .item-actions {
-    margin-top: -1.5rem;
+    margin-top: -1rem;
 }
 
 .accordion-button {
@@ -79,4 +79,13 @@
 body > .container,
 main, .content, .page-body {
   padding-bottom: calc(var(--site-footer-height) + 1rem);
+}
+
+.item-row1, .item-row2 {
+  flex-wrap: wrap; /* allow wrapping when needed */
+}
+
+.item-name {
+  white-space: normal;  /* ensure text can wrap */
+  word-break: break-word; /* break long words if needed */
 }

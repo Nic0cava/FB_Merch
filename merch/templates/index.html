@@ -53,7 +53,7 @@
       <div class="accordion-body p-0">
         {% for item in category.sorted_items %}
          <div class="item-row1 d-flex">
-    <div class="item-name text-truncate" title="{{ item.name }}">{{ item.name }}</div>
+    <div class="item-name" title="{{ item.name }}">{{ item.name }}</div>
 </div>
 <div class="item-row2 d-flex">
     <div class="item-date text-muted text-center">
@@ -61,7 +61,11 @@
     </div>
     
     <div class="item-qty text-muted text-center">
-        <strong>Qty: {{ item.quantity }}</strong>
+        {% if (item.quantity or 0) == 0 %}
+          <strong class="text-danger">Out of Stock</strong>
+        {% else %}
+          <strong>Qty: {{ item.quantity }}</strong>
+        {% endif %}
     </div>
 
     <div class="item-actions text-end">

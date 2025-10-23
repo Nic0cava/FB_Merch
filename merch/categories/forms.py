@@ -1,12 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired, EqualTo
+from wtforms.validators import DataRequired, Length
 from wtforms import ValidationError
 
 from merch.models import Category
 
 class AddCategoryForm(FlaskForm):
-    name = StringField("Name",validators=[DataRequired()])
+    name = StringField("Name",validators=[DataRequired(), Length(max=64)])
     submit = SubmitField("Add New Category")
 
     # WTForms validator must be named validate_<fieldname>
@@ -15,7 +15,7 @@ class AddCategoryForm(FlaskForm):
             raise ValidationError("This category name already exists!")
         
 class UpdateCategoryForm(FlaskForm):
-    name = StringField("Name",validators=[DataRequired()])
+    name = StringField("Name",validators=[DataRequired(), Length(max=64)])
     submit = SubmitField("Update")
 
     def __init__(self, original_name=None, *args, **kwargs):

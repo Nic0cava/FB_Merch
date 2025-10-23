@@ -1,16 +1,16 @@
 # items/forms.py
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField, SelectField
-from wtforms.validators import DataRequired, NumberRange
+from wtforms.validators import DataRequired, NumberRange, InputRequired, Length
 from wtforms import ValidationError
 
 from merch.models import Item
 
 # Add Item Form
 class AddItemForm(FlaskForm):
-    name = StringField('Item Name', validators=[DataRequired()])
+    name = StringField('Item Name', validators=[DataRequired(), Length(max=64)])
     # Ensures quantity can't be negative
-    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=0)])
+    quantity = IntegerField('Quantity', validators=[InputRequired(), NumberRange(min=0)])
     category_id = SelectField("Category",coerce=int,)
     submit = SubmitField('Submit')
 
@@ -21,8 +21,8 @@ class AddItemForm(FlaskForm):
 
 # Update Item Form
 class UpdateItemForm(FlaskForm):
-    name = StringField("Name", validators=[DataRequired()])
-    quantity = IntegerField("Quantity", validators=[DataRequired(), NumberRange(min=0)])
+    name = StringField("Name", validators=[DataRequired(), Length(max=64)])
+    quantity = IntegerField("Quantity", validators=[InputRequired(), NumberRange(min=0)])
     category_id = SelectField("Category", coerce=int, validators=[DataRequired()])
     submit = SubmitField("Update Item")
 
