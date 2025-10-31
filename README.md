@@ -29,6 +29,7 @@ The app enables employees to instantly check inventory levels, view what’s in 
 ## 🖼️ Screenshots
 
 Below are example screenshots of the app interface.
+<img width="958" height="1444" alt="Readme_screenshot" src="https://github.com/user-attachments/assets/0aeb516b-6e96-4f60-8702-5ad34c2184b7" />
 
 
 ---
