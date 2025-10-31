@@ -27,7 +27,7 @@ The app enables employees to instantly check inventory levels, view what’s in 
 * Mobile-friendly design for use across devices.
 
 ## 🖼️ Screenshots
-<img width="479" height="722" alt="Readme_screenshot" src="https://github.com/user-attachments/assets/0aeb516b-6e96-4f60-8702-5ad34c2184b7" />
+<img width="240" height="361" alt="Readme_screenshot" src="https://github.com/user-attachments/assets/0aeb516b-6e96-4f60-8702-5ad34c2184b7" />
 
 
 ---
