@@ -41,21 +41,32 @@
         <a class="nav-link active" href="{{url_for('category.add_category')}}">Add Category</a>
     </li>
     {% endif %}
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if session.get('authed') %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.change_password') }}">Change Password</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+        {% endif %}
+      </ul>
     </div>
-    </div>
-    </nav>
+  </div>
+</nav>
 
-    {% block content %}
+{% block content %}
 
-    {% endblock %}
-    <div style="height:50px" aria-hidden="true"></div>
+{% endblock %}
+<div style="height:50px" aria-hidden="true"></div>
 
-    <nav class="navbar fixed-bottom bg-body-tertiary navbar-custom">
-    <div class="container-fluid d-flex justify-content-center flex-nowrap gap-3 py-2 footer">
-        <a class="navbar-brand" href="{{url_for('items.add_item')}}">Add Item</a>
-        <a class="navbar-brand" href="{{url_for('category.add_category')}}">Add Category</a>
-    </div>
-    </nav>
+<nav class="navbar fixed-bottom bg-body-tertiary navbar-custom">
+  <div class="container-fluid d-flex justify-content-center flex-nowrap gap-3 py-2 footer">
+    {% if session.get('authed') %}
+    <a class="navbar-brand" href="{{url_for('items.add_item')}}">Add Item</a>
+    <a class="navbar-brand" href="{{url_for('category.add_category')}}">Add Category</a>
+    {% endif %}
+  </div>
+</nav>
 
 </body>
 </html>
