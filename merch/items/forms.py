@@ -1,7 +1,7 @@
 # items/forms.py
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField
-from wtforms.validators import DataRequired, NumberRange, InputRequired, Length
+from wtforms import StringField, IntegerField, SubmitField, SelectField, FloatField
+from wtforms.validators import DataRequired, NumberRange, InputRequired, Length, Optional
 from wtforms import ValidationError
 
 from merch.models import Item
@@ -9,8 +9,10 @@ from merch.models import Item
 # Add Item Form
 class AddItemForm(FlaskForm):
     name = StringField('Item Name', validators=[DataRequired(), Length(max=64)])
-    # Ensures quantity can't be negative
-    quantity = IntegerField('Quantity', validators=[InputRequired(), NumberRange(min=0)])
+    foh_qty = IntegerField('FOH Qty', validators=[InputRequired(), NumberRange(min=0)])
+    boh_qty = IntegerField('BOH Qty', validators=[InputRequired(), NumberRange(min=0)])
+    room_300_qty = IntegerField('Room 300 Qty', validators=[InputRequired(), NumberRange(min=0)])
+    item_cost = FloatField('Item Cost', validators=[Optional(), NumberRange(min=0)])
     category_id = SelectField("Category",coerce=int,)
     submit = SubmitField('Submit')
 
@@ -22,7 +24,10 @@ class AddItemForm(FlaskForm):
 # Update Item Form
 class UpdateItemForm(FlaskForm):
     name = StringField("Name", validators=[DataRequired(), Length(max=64)])
-    quantity = IntegerField("Quantity", validators=[InputRequired(), NumberRange(min=0)])
+    foh_qty = IntegerField("FOH Qty", validators=[InputRequired(), NumberRange(min=0)])
+    boh_qty = IntegerField("BOH Qty", validators=[InputRequired(), NumberRange(min=0)])
+    room_300_qty = IntegerField("Room 300 Qty", validators=[InputRequired(), NumberRange(min=0)])
+    item_cost = FloatField("Item Cost", validators=[Optional(), NumberRange(min=0)])
     category_id = SelectField("Category", coerce=int, validators=[DataRequired()])
     submit = SubmitField("Update Item")
 

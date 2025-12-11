@@ -61,10 +61,12 @@
     </div>
     
     <div class="item-qty text-muted text-center">
-        {% if (item.quantity or 0) == 0 %}
+        {% if (item.total_qty or 0) == 0 %}
           <strong class="text-danger">Out of Stock</strong>
         {% else %}
-          <strong>Qty: {{ item.quantity }}</strong>
+          <strong>Total Qty: {{ item.total_qty }}</strong><br>
+          <small>FOH {{ item.foh_qty }} | BOH {{ item.boh_qty }} | R300 {{ item.room_300_qty }}</small><br>
+          <small>Cost: ${{ '%.2f' % (item.item_cost or 0) }} | Total: ${{ '%.2f' % (item.total_cost or 0) }}</small>
         {% endif %}
     </div>
 

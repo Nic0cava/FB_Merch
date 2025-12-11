@@ -21,7 +21,10 @@ def add_item():
     if form.validate_on_submit():
         item = Item(
             name=form.name.data,
-            quantity=form.quantity.data,
+            foh_qty=form.foh_qty.data,
+            boh_qty=form.boh_qty.data,
+            room_300_qty=form.room_300_qty.data,
+            item_cost=form.item_cost.data or 0,
             category_id=form.category_id.data
         )
         db.session.add(item)
@@ -59,7 +62,10 @@ def update_item(item_id):
     # Normal Update Flow
     if form.validate_on_submit():
         item.name = form.name.data
-        item.quantity = form.quantity.data
+        item.foh_qty = form.foh_qty.data
+        item.boh_qty = form.boh_qty.data
+        item.room_300_qty = form.room_300_qty.data
+        item.item_cost = form.item_cost.data or 0
         item.category_id = form.category_id.data
         # update timestamp to now (UTC)
         item.date = datetime.now(timezone.utc)
@@ -70,7 +76,10 @@ def update_item(item_id):
     # on GET pre-fill the form
     if request.method == 'GET':
         form.name.data = item.name
-        form.quantity.data = item.quantity
+        form.foh_qty.data = item.foh_qty
+        form.boh_qty.data = item.boh_qty
+        form.room_300_qty.data = item.room_300_qty
+        form.item_cost.data = item.item_cost
         form.category_id.data = item.category_id
 
     # flash validation errors after POST

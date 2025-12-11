@@ -30,7 +30,7 @@ def index():
     for cat in categories:
         items = items_by_cat.get(cat.id, []) or []
         if is_out_search:
-            filtered = [i for i in items if (i.quantity or 0) == 0]
+            filtered = [i for i in items if (i.total_qty or 0) == 0]
             cat.sorted_items = sorted(filtered, key=lambda i: (i.name or '').lower())
         elif q_lower:
             filtered = [i for i in items if q_lower in (i.name or '').lower()]

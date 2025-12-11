@@ -1,6 +1,7 @@
 # merch/models.py
 from merch import db
 from sqlalchemy import CheckConstraint, func
+from sqlalchemy.ext.hybrid import hybrid_property
 # from datetime import datetime, timezone
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -27,10 +28,12 @@ class Category(db.Model):
         return f"Category Name: {self.name}"
 
 class Item(db.Model):
-   # adds a non-negative constraint to quantity column
    __tablename__= 'items'
    __table_args__ = (
-        CheckConstraint('quantity >= 0', name='ck_items_quantity_nonnegative'),
+        CheckConstraint('foh_qty >= 0', name='ck_items_foh_qty_nonnegative'),
+        CheckConstraint('boh_qty >= 0', name='ck_items_boh_qty_nonnegative'),
+        CheckConstraint('room_300_qty >= 0', name='ck_items_room_300_qty_nonnegative'),
+        CheckConstraint('item_cost >= 0', name='ck_items_item_cost_nonnegative'),
     )
    
    category = db.relationship(Category)
@@ -39,21 +42,45 @@ class Item(db.Model):
    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
 
    name = db.Column(db.String(64),unique=True,nullable=False)
-   quantity = db.Column(db.Integer, nullable=False, default=0)
+
+   # New quantity columns
+   foh_qty = db.Column(db.Integer, nullable=False, default=0)
+   boh_qty = db.Column(db.Integer, nullable=False, default=0)
+   room_300_qty = db.Column(db.Integer, nullable=False, default=0)
+   
+   # Item cost as float
+   item_cost = db.Column(db.Float, nullable=False, default=0.0)
+
+   
    # date = db.Column(db.DateTime(timezone=True), nullable=False, default=lambda: datetime.now(timezone.utc)) #! If this does not work try server-side
    # Server-Side #!might have to change pgAdmin settings
    date = db.Column(db.DateTime(timezone=True), nullable=False, server_default=func.now())
    # relationship back to Category
    category = db.relationship('Category', back_populates='items')
 
+   # Calculated properties
+   @hybrid_property
+   def total_qty(self):
+       """Sum of all quantity fields"""
+       return (self.foh_qty or 0) + (self.boh_qty or 0) + (self.room_300_qty or 0)
 
-   def __init__(self, name, quantity=0, category_id=None):
+   @hybrid_property
+   def total_cost(self):
+       """Total quantity multiplied by item cost"""
+       return self.total_qty * (self.item_cost or 0.0)
+
+
+
+   def __init__(self, name, foh_qty=0, boh_qty=0, room_300_qty=0, item_cost=0.0, category_id=None):
        self.name = name
-       self.quantity = quantity
+       self.foh_qty = foh_qty
+       self.boh_qty = boh_qty
+       self.room_300_qty = room_300_qty
+       self.item_cost = item_cost
        self.category_id = category_id
 
    def __repr__(self):
-       return f"Item: {self.name}, QT: {self.quantity}"
+       return f"Item: {self.name}, Total QT: {self.total_qty}"
 
 
 # A single shared password to gate the whole app
