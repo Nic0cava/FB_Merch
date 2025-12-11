@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
   <div class="text-center my-4">
-    <h2 class="fw-bold">Update Item</h2>
+    <h2 class="fw-bold mb-1">Update Item</h2>
     <p class="text-muted mb-0">Editing: <strong>{{ item.name }}</strong></p>
   </div>
 
@@ -22,7 +22,20 @@
   {% endwith %}
 
   <div class="row justify-content-center">
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-7 col-lg-6">
+      <div class="mb-3">
+        <div class="p-3 border rounded bg-light d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Total Qty</div>
+            <div class="fw-bold fs-5">{{ item.total_qty }}</div>
+          </div>
+          <div class="text-end">
+            <div class="text-muted small">Total Cost</div>
+            <div class="fw-bold fs-5">${{ '%.2f' % item.total_cost if item.total_cost is not none else '0.00' }}</div>
+          </div>
+        </div>
+      </div>
+
       <form method="POST" novalidate>
         {{ form.hidden_tag() }}
 
@@ -34,28 +47,31 @@
           {% endif %}
         </div>
 
-        <div class="mb-3">
-          {{ form.foh_qty.label(class="form-label") }}
-          {{ form.foh_qty(class="form-control", placeholder="Front of house qty") }}
-          {% if form.foh_qty.errors %}
-            <div class="invalid-feedback d-block">{{ form.foh_qty.errors[0] }}</div>
-          {% endif %}
-        </div>
-
-        <div class="mb-3">
-          {{ form.boh_qty.label(class="form-label") }}
-          {{ form.boh_qty(class="form-control", placeholder="Back of house qty") }}
-          {% if form.boh_qty.errors %}
-            <div class="invalid-feedback d-block">{{ form.boh_qty.errors[0] }}</div>
-          {% endif %}
-        </div>
-
-        <div class="mb-3">
-          {{ form.room_300_qty.label(class="form-label") }}
-          {{ form.room_300_qty(class="form-control", placeholder="Room 300 qty") }}
-          {% if form.room_300_qty.errors %}
-            <div class="invalid-feedback d-block">{{ form.room_300_qty.errors[0] }}</div>
-          {% endif %}
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label fw-semibold mb-1">Quantities</label>
+          </div>
+          <div class="col-12 col-md-4">
+            {{ form.foh_qty(class="form-control form-control-sm", placeholder="FOH") }}
+            <div class="form-text">Front of house</div>
+            {% if form.foh_qty.errors %}
+              <div class="invalid-feedback d-block">{{ form.foh_qty.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="col-12 col-md-4">
+            {{ form.boh_qty(class="form-control form-control-sm", placeholder="BOH") }}
+            <div class="form-text">Back of house</div>
+            {% if form.boh_qty.errors %}
+              <div class="invalid-feedback d-block">{{ form.boh_qty.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="col-12 col-md-4">
+            {{ form.room_300_qty(class="form-control form-control-sm", placeholder="Room 300") }}
+            <div class="form-text">Room 300</div>
+            {% if form.room_300_qty.errors %}
+              <div class="invalid-feedback d-block">{{ form.room_300_qty.errors[0] }}</div>
+            {% endif %}
+          </div>
         </div>
 
         <div class="mb-3">
@@ -72,21 +88,6 @@
           {% if form.category_id.errors %}
             <div class="invalid-feedback d-block">{{ form.category_id.errors[0] }}</div>
           {% endif %}
-        </div>
-
-        <div class="row g-3">
-          <div class="col-6">
-            <div class="p-3 border rounded bg-light">
-              <div class="text-muted small">Total Qty</div>
-              <div class="fw-bold fs-5">{{ item.total_qty }}</div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="p-3 border rounded bg-light">
-              <div class="text-muted small">Total Cost</div>
-              <div class="fw-bold fs-5">${{ '%.2f' % item.total_cost if item.total_cost is not none else '0.00' }}</div>
-            </div>
-          </div>
         </div>
 
         <div class="d-flex justify-content-center gap-2 mt-3">

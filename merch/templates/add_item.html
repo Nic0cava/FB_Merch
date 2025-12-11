@@ -34,28 +34,31 @@
           {% endif %}
         </div>
 
-        <div class="mb-3">
-          {{ form.foh_qty.label(class="form-label") }}
-          {{ form.foh_qty(class="form-control", placeholder="Front of house qty") }}
-          {% if form.foh_qty.errors %}
-            <div class="invalid-feedback d-block">{{ form.foh_qty.errors[0] }}</div>
-          {% endif %}
-        </div>
-
-        <div class="mb-3">
-          {{ form.boh_qty.label(class="form-label") }}
-          {{ form.boh_qty(class="form-control", placeholder="Back of house qty") }}
-          {% if form.boh_qty.errors %}
-            <div class="invalid-feedback d-block">{{ form.boh_qty.errors[0] }}</div>
-          {% endif %}
-        </div>
-
-        <div class="mb-3">
-          {{ form.room_300_qty.label(class="form-label") }}
-          {{ form.room_300_qty(class="form-control", placeholder="Room 300 qty") }}
-          {% if form.room_300_qty.errors %}
-            <div class="invalid-feedback d-block">{{ form.room_300_qty.errors[0] }}</div>
-          {% endif %}
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label fw-semibold mb-1">Quantities</label>
+          </div>
+          <div class="col-12 col-md-4">
+            {{ form.foh_qty(class="form-control form-control-sm", placeholder="FOH") }}
+            <div class="form-text">Front of house</div>
+            {% if form.foh_qty.errors %}
+              <div class="invalid-feedback d-block">{{ form.foh_qty.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="col-12 col-md-4">
+            {{ form.boh_qty(class="form-control form-control-sm", placeholder="BOH") }}
+            <div class="form-text">Back of house</div>
+            {% if form.boh_qty.errors %}
+              <div class="invalid-feedback d-block">{{ form.boh_qty.errors[0] }}</div>
+            {% endif %}
+          </div>
+          <div class="col-12 col-md-4">
+            {{ form.room_300_qty(class="form-control form-control-sm", placeholder="Room 300") }}
+            <div class="form-text">Room 300</div>
+            {% if form.room_300_qty.errors %}
+              <div class="invalid-feedback d-block">{{ form.room_300_qty.errors[0] }}</div>
+            {% endif %}
+          </div>
         </div>
 
         <div class="mb-3">
