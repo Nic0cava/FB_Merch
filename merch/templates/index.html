@@ -32,7 +32,7 @@
   {% for category in categories %}
   <div class="accordion-item">
     <h2 class="accordion-header" id="heading{{ loop.index }}">
-      <div class="d-flex w-100 align-items-center">
+      <div class="d-flex w-100 align-items-center category-actions">
     <button class="accordion-button collapsed flex-grow-1 text-start" type="button"
             data-bs-toggle="collapse"
             data-bs-target="#collapse{{ loop.index }}"
@@ -45,6 +45,11 @@
        href="{{ url_for('category.update_category', category_id=category.id) }}"
        onclick="event.stopPropagation();">
       ✏
+    </a>
+    <a class="btn btn-sm btn-outline-secondary ms-2"
+       href="{{ url_for('core.export_items', category_id=category.id) }}"
+       onclick="event.stopPropagation();">
+      Export
     </a>
   </div>
     </h2>

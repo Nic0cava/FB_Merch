@@ -35,12 +35,15 @@
         </li>
         {% endif %}
     {# Add Category: only show when not on add_category page #}
-    {% if request.path != url_for('category.add_category') %}
+        {% if request.path != url_for('category.add_category') %}
     </li>
     <li class="nav-item">
         <a class="nav-link active" href="{{url_for('category.add_category')}}">Add Category</a>
     </li>
     {% endif %}
+    <li class="nav-item">
+        <a class="nav-link active" href="{{ url_for('core.export_items') }}">Export All</a>
+    </li>
       </ul>
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         {% if session.get('authed') %}

@@ -1,7 +1,10 @@
 # merch/core/views.py
-from flask import render_template, request, Blueprint
+from io import BytesIO
+import re
+from flask import render_template, request, Blueprint, send_file
 from merch.models import Category, Item
 from collections import defaultdict
+from openpyxl import Workbook
 
 
 core = Blueprint('core', __name__)
@@ -45,3 +48,63 @@ def index():
 
 
     return render_template('index.html', categories=categories)
+
+
+@core.route('/export/items.xlsx')
+def export_items():
+    category_id = request.args.get('category_id', type=int)
+    category = None
+    if category_id:
+        category = Category.query.get_or_404(category_id)
+
+    query = (Item.query
+             .join(Category, Item.category_id == Category.id)
+             .order_by(Category.name, Item.name))
+    if category:
+        query = query.filter(Item.category_id == category.id)
+    items = query.all()
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = (category.name[:31] if category else 'Items')
+    ws.append([
+        'Category',
+        'Item',
+        'FOH',
+        'BOH',
+        'R300',
+        'Total Qty',
+        'Item Cost',
+        'Total Cost',
+        'Updated',
+    ])
+
+    for item in items:
+        ws.append([
+            item.category.name if item.category else '',
+            item.name,
+            item.foh_qty,
+            item.boh_qty,
+            item.room_300_qty,
+            item.total_qty,
+            item.item_cost,
+            item.total_cost,
+            item.date.strftime('%Y-%m-%d') if item.date else '',
+        ])
+
+    output = BytesIO()
+    wb.save(output)
+    output.seek(0)
+
+    filename = 'merch_items.xlsx'
+    if category:
+        safe_name = re.sub(r'[^A-Za-z0-9_-]+', '_', category.name).strip('_')
+        if safe_name:
+            filename = f'merch_items_{safe_name}.xlsx'
+
+    return send_file(
+        output,
+        as_attachment=True,
+        download_name=filename,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    )

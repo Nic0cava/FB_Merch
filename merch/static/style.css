@@ -130,6 +130,27 @@ main, .content, .page-body {
   border-color: var(--FB-Logo-color-yellow);
 }
 
+.category-actions {
+  padding-right: 0.25rem;
+}
+
+/* match update button styling for category export */
+.category-actions .btn-outline-secondary,
+.category-actions a.btn-outline-secondary {
+  color: var(--FB-Logo-color-blue);
+  border-color: var(--FB-Logo-color-yellow);
+  background-color: transparent;
+}
+
+.category-actions .btn-outline-secondary:hover,
+.category-actions .btn-outline-secondary:focus,
+.category-actions a.btn-outline-secondary:hover,
+.category-actions a.btn-outline-secondary:focus {
+  color: #000;
+  background-color: rgba(255,212,0,0.95);
+  border-color: var(--FB-Logo-color-yellow);
+}
+
 /* make navbar links look like pill buttons with the yellow border */
 .navbar-custom .nav-link {
   display: inline-block;

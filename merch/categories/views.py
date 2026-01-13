@@ -16,7 +16,7 @@ def add_category():
 
         db.session.add(category)
         db.session.commit()
-        flash('New Category Successfully Added!') #! Update this flash later
+        flash('New Category Successfully Added!', 'success') #! Update this flash later
         return redirect(url_for('core.index'))
     
     # flash validation errors after POST
@@ -51,7 +51,7 @@ def update_category(category_id):
     if form.validate_on_submit():
         cat.name = form.name.data
         db.session.commit()
-        flash('Category Name Updated!')
+        flash('Category Name Updated!', 'success')
         return redirect(url_for('core.index'))
 
     elif request.method == 'GET':
