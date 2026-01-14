@@ -56,8 +56,8 @@ This application provides **instant visibility into inventory levels**, item loc
 
 ## 🖼️ Screenshots
 
-<img width="640" height="760" alt="fb_merch_example1" src="https://github.com/user-attachments/assets/6b452eb9-0144-46d7-b517-0e5caed798fb" />
-<img width="640" height="760" alt="fb_merch_example2" src="https://github.com/user-attachments/assets/1f0923b0-03a9-4a73-8a8b-fcc320e5d4d2" />
+<img width="320" height="380" alt="fb_merch_example1" src="https://github.com/user-attachments/assets/6b452eb9-0144-46d7-b517-0e5caed798fb" />
+<img width="320" height="380" alt="fb_merch_example2" src="https://github.com/user-attachments/assets/1f0923b0-03a9-4a73-8a8b-fcc320e5d4d2" />
 
 ---
 
