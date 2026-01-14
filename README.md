@@ -1,36 +1,68 @@
 # FB Merch
 
-A custom-built inventory management web app designed for **Funky Buddha Brewery** to streamline and modernize their merchandise operations.
-
-## 🧾 Overview
-
-The **FB Merch App** was created to solve inefficiencies in how Funky Buddha Brewery managed its merchandise inventory. Much of the merch is stored in the back of their 100,000 sq. ft. facility, causing delays when customers requested items not immediately available up front. Employees often spent 5–10 minutes retrieving items, leading to longer wait times, potential lost sales, and wasted effort — especially during busy taproom hours.
-
-The app enables employees to instantly check inventory levels, view what’s in stock or out of stock, and update counts in real time as items are pulled. This keeps everyone aligned and significantly reduces the time spent on manual inventory checks — what once took 3–4 hours can now be reviewed within minutes.
-
-## ⚙️ Built With
-
-* **Backend:** Python, Flask Framework
-* **Database:** PostgreSQL (viewed and managed via pgAdmin)
-* **ORM & Migrations:** SQLAlchemy, Flask-Migrate
-* **Forms & Security:** Flask-WTF, Werkzeug Security (for password hashing and authentication)
-* **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5
-* **Templating:** Jinja2
-* **Deployment:** Gunicorn + Nginx on a VPS
-
-## 💡 Features
-
-* Simple, responsive, and intuitive UI built with Bootstrap 5 and Flexbox.
-* Secure authentication gate for internal company access.
-* Live item search and category filtering.
-* Real-time inventory updates to ensure accurate stock visibility.
-* Mobile-friendly design for use across devices.
-
-## 🖼️ Screenshots
-<img width="240" height="361" alt="Readme_screenshot" src="https://github.com/user-attachments/assets/0aeb516b-6e96-4f60-8702-5ad34c2184b7" />
-
+A custom-built inventory management web application designed for **Funky Buddha Brewery** to modernize, centralize, and streamline merchandise inventory tracking and reporting.
 
 ---
 
-**FB Merch** saves time, improves accuracy, and creates a smoother experience for both employees and customers — turning a tedious manual process into a fast, reliable, and modern inventory solution.
+## 🧾 Overview
 
+**FB Merch** was created to solve long-standing inefficiencies in how Funky Buddha Brewery managed its merchandise inventory across a large 100,000 sq. ft. facility. Merchandise is stored across multiple physical locations, often far from the taproom floor. When customers requested items that were not immediately available, employees could spend 5–10 minutes searching for stock, leading to longer wait times, lost sales opportunities, and unnecessary labor — especially during peak hours.
+
+This application provides **instant visibility into inventory levels**, item locations, and value metrics. What once took **3–4 hours of manual counting and reconciliation** can now be reviewed, updated, and exported **within minutes**, dramatically improving operational efficiency and accuracy.
+
+---
+
+## ⚙️ Built With
+
+* **Backend:** Python, Flask  
+* **Database:** PostgreSQL (managed with pgAdmin)  
+* **ORM & Migrations:** SQLAlchemy, Flask-Migrate  
+* **Forms & Security:** Flask-WTF, Werkzeug (password hashing & authentication)  
+* **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5  
+* **Templating:** Jinja2  
+* **Deployment:** Gunicorn + Nginx on a VPS  
+
+---
+
+## 💡 Features
+
+### Inventory Management
+* Track inventory **per item and per location**:
+  * Front of House (FOH)
+  * Back of House (BOH)
+  * Room 300
+* Real-time quantity updates with automatic total recalculations
+* Item-level timestamps showing **when inventory was last updated**
+* Live search and category-based filtering
+
+### Financial & Historical Tracking
+* Track **item cost to the company**
+* Automatically calculate **total inventory value per item**
+* Store and compare **prior month inventory totals**
+* Calculate **month-over-month inventory differences** for better auditing and forecasting
+
+### Reporting & Data Export
+* Export **all inventory data** to `.xlsx` format
+* Optionally export **per-category inventory reports**
+* Excel-compatible output for long-term record keeping, audits, and reporting
+* Enables the company to **archive monthly inventory snapshots** effortlessly
+
+### UX & Security
+* Clean, reorganized app layout focused on clarity and usability
+* Mobile-friendly, responsive design
+* Secure authentication for internal company access only
+
+---
+
+## 🖼️ Screenshots
+
+<img width="1278" height="1524" alt="fb_merch_example1" src="https://github.com/user-attachments/assets/6b452eb9-0144-46d7-b517-0e5caed798fb" />
+<img width="1279" height="1522" alt="fb_merch_example2" src="https://github.com/user-attachments/assets/1f0923b0-03a9-4a73-8a8b-fcc320e5d4d2" />
+
+---
+
+## 🚀 Impact
+
+**FB Merch** transforms merchandise tracking from a slow, error-prone manual process into a **fast, reliable, and data-driven system**. It improves inventory accuracy, reduces labor time, enables historical tracking, and gives the company powerful reporting tools — all while remaining intuitive for day-to-day employee use.
+
+This project reflects real-world operational needs and demonstrates full-stack development, database design, reporting automation, and production deployment best practices.
