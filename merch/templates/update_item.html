@@ -34,6 +34,16 @@
             <div class="fw-bold fs-5">${{ '%.2f' % item.total_cost if item.total_cost is not none else '0.00' }}</div>
           </div>
         </div>
+        <div class="mt-2 p-2 border rounded bg-light d-flex justify-content-between align-items-center">
+          <div>
+            <div class="text-muted small">Prior Month Total</div>
+            <div class="fw-semibold">{{ item.prior_month_total }}</div>
+          </div>
+          <div class="text-end">
+            <div class="text-muted small">Difference</div>
+            <div class="fw-semibold">{{ item.difference }}</div>
+          </div>
+        </div>
       </div>
 
       <form method="POST" novalidate>

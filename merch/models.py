@@ -34,9 +34,16 @@ class Item(db.Model):
         CheckConstraint('boh_qty >= 0', name='ck_items_boh_qty_nonnegative'),
         CheckConstraint('room_300_qty >= 0', name='ck_items_room_300_qty_nonnegative'),
         CheckConstraint('item_cost >= 0', name='ck_items_item_cost_nonnegative'),
+        CheckConstraint('prior_month_total >= 0', name='ck_items_prior_month_total_nonnegative'),
     )
    
    category = db.relationship(Category)
+   monthly_total = db.relationship(
+       'ItemMonthlyTotal',
+       back_populates='item',
+       uselist=False,
+       cascade='all, delete-orphan'
+   )
 
    id = db.Column(db.Integer, primary_key=True)
    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
@@ -47,6 +54,10 @@ class Item(db.Model):
    foh_qty = db.Column(db.Integer, nullable=False, default=0)
    boh_qty = db.Column(db.Integer, nullable=False, default=0)
    room_300_qty = db.Column(db.Integer, nullable=False, default=0)
+
+   # Monthly tracking (stored for export)
+   prior_month_total = db.Column(db.Integer, nullable=False, default=0)
+   difference = db.Column(db.Integer, nullable=False, default=0)
    
    # Item cost as float
    item_cost = db.Column(db.Float, nullable=False, default=0.0)
@@ -71,16 +82,39 @@ class Item(db.Model):
 
 
 
-   def __init__(self, name, foh_qty=0, boh_qty=0, room_300_qty=0, item_cost=0.0, category_id=None):
+   def __init__(
+       self,
+       name,
+       foh_qty=0,
+       boh_qty=0,
+       room_300_qty=0,
+       item_cost=0.0,
+       category_id=None,
+       prior_month_total=0,
+       difference=0,
+   ):
        self.name = name
        self.foh_qty = foh_qty
        self.boh_qty = boh_qty
        self.room_300_qty = room_300_qty
        self.item_cost = item_cost
        self.category_id = category_id
+       self.prior_month_total = prior_month_total
+       self.difference = difference
 
    def __repr__(self):
        return f"Item: {self.name}, Total QT: {self.total_qty}"
+
+
+class ItemMonthlyTotal(db.Model):
+   __tablename__ = 'item_monthly_totals'
+
+   id = db.Column(db.Integer, primary_key=True)
+   item_id = db.Column(db.Integer, db.ForeignKey('items.id'), nullable=False, unique=True)
+   month_end = db.Column(db.DateTime(timezone=True), nullable=False)
+   total_qty = db.Column(db.Integer, nullable=False, default=0)
+
+   item = db.relationship('Item', back_populates='monthly_total')
 
 
 # A single shared password to gate the whole app

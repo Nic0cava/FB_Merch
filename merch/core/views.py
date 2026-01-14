@@ -76,6 +76,8 @@ def export_items():
         'Total Qty',
         'Item Cost',
         'Total Cost',
+        'Prior Month Total',
+        'Difference',
         'Updated',
     ])
 
@@ -89,6 +91,8 @@ def export_items():
             item.total_qty,
             item.item_cost,
             item.total_cost,
+            item.prior_month_total,
+            item.difference,
             item.date.strftime('%Y-%m-%d') if item.date else '',
         ])
 
